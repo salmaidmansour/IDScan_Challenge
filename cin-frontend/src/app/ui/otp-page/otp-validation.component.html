@@ -1,0 +1,16 @@
+<div class="otp-container">
+  <h2 class="otp-title">Validation OTP</h2>
+  <p class="otp-instruction">Un code OTP a été envoyé à votre email. Veuillez le saisir ci-dessous :</p>
+  <input
+    type="text"
+    class="otp-input"
+    placeholder="Entrez votre OTP"
+    [value]="otp"
+    (input)="onOtpInput($event)"
+  />
+  <button class="otp-button" (click)="onVerifyOtp()" [disabled]="isOtpExpired">Vérifier</button>
+  <p *ngIf="errorMessage" class="otp-error">{{ errorMessage }}</p>
+  <p *ngIf="isOtpExpired" class="otp-expired">Le code OTP a expiré. Cliquez ci-dessous pour demander un nouveau code.</p>
+  <p *ngIf="!isOtpExpired" class="otp-timer">Temps restant : {{ timer }} secondes</p>
+  <button class="otp-resend-button" (click)="onResendOtp()" *ngIf="isOtpExpired">Renvoyer le code OTP</button>
+</div>

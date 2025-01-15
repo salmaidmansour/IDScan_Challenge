@@ -1,0 +1,133 @@
+<head>
+  <!-- Ajoutez ceci dans la section <head> de votre fichier HTML -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="row">
+     
+
+     
+      <!-- Notifications and User Dropdown Section -->
+      <div class="col-lg-3">
+        <div class="header__cart">
+          <ul>
+            <!-- Notification Icon -->
+            <li>
+              <a href="#">
+                <div class="icon"><i class="bi bi-bell-fill"></i></div>
+                <span>1</span>
+              </a>
+            </li>
+
+            <!-- User Dropdown -->
+            <li class="dropdown" (click)="toggleDropdown()">
+              <a>
+                <img [src]="avatar" alt="User Avatar" class="avatar" />
+                <i class="arrow bi bi-chevron-down"></i>
+              </a>
+              <!-- Show dropdown menu when showDropdown is true -->
+              <ul *ngIf="showDropdown" class="dropdown-menu">
+                <li><a href="/profil">Profile</a></li>
+                <li><a href="#" (click)="logout()">Déconnexion</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+<div class="titre"></div>
+<section class="carouselContainer mt-5">
+  <div class="container">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Extraction de la Carte d'Identité</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="image-upload">
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" hidden #fileInput />
+          <button mat-raised-button color="primary" (click)="fileInput.click()">
+            Choisir une photo / Prendre une photo
+          </button>
+          <button mat-raised-button color="primary" (click)="openCamera()">
+            Ouvrir la caméra
+          </button>
+          <button mat-raised-button color="primary" (click)="captureImage()">
+            Capturer l'image
+          </button>
+        </div>
+
+        <!-- Flux vidéo en direct -->
+        <div class="video-preview" *ngIf="video">
+          <video #videoElement [srcObject]="video.srcObject" autoplay></video>
+        </div>
+
+        <!-- Image sélectionnée ou capturée -->
+        <div class="image-preview" *ngIf="selectedImage">
+          <img [src]="selectedImage" alt="Image sélectionnée" class="image">
+        </div>
+
+        <!-- Données extraites -->
+        <div *ngIf="extractedData" class="data-output">
+          <mat-form-field class="form-field">
+            <mat-label>Prénom</mat-label>
+            <input matInput [value]="extractedData.first_name" readonly />
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Nom</mat-label>
+            <input matInput [value]="extractedData.last_name" readonly />
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Date de Naissance</mat-label>
+            <input matInput [value]="extractedData.date_of_birth" readonly />
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Lieu de Naissance</mat-label>
+            <input matInput [value]="extractedData.place_of_birth" readonly />
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Code ID</mat-label>
+            <input matInput [value]="extractedData.id_code" readonly />
+          </mat-form-field>
+        </div>
+        
+
+        <!-- Message d'erreur -->
+        <div *ngIf="errorMessage" class="error-message">
+          <mat-icon color="warn">error</mat-icon> {{ errorMessage }}
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
+
+
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h2>Extract Carte</h2>
+        <p>Votre guide vers une utilisation éclairée </p>
+      </div>
+      <div class="footer-icons">
+        <a href="#" class="icon facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="icon twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="icon google-plus"><i class="fab fa-google-plus-g"></i></a>
+        <a href="#" class="icon youtube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Catalogue de Extract Carte. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+</body>
+
